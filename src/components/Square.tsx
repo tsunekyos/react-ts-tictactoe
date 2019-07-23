@@ -1,13 +1,19 @@
 /** @jsx jsx */
-import React from 'react';
-import { jsx, css } from '@emotion/core';
+import React from "react";
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
 
-const color = 'darkgreen';
-const borderWidth = '1px';
+const color = "darkgreen";
+const borderWidth = "1px";
 
-const SquareStyle = css`
+type SquareProps = {
+  fontWeight: string;
+  onClick: () => void; // なくても良い？？？
+};
+
+const StyledSquare = styled.div<SquareProps>`
   cursor: pointer;
-  font-weight: bold;
+  font-weight: ${props => props.fontWeight};
   box-sizing: border-box;
   margin-top: -${borderWidth};
   margin-right: -${borderWidth};
@@ -22,17 +28,17 @@ interface PropsType {
   onClick: () => void;
 }
 
-const Square: React.FC<PropsType> = (props) => {
-  
+const Square: React.FC<PropsType> = props => {
   return (
-    <div
-      className="ClassName"
-      css={SquareStyle}
-      onClick={ () => { props.onClick() } }
+    <StyledSquare
+      fontWeight="bold"
+      onClick={() => {
+        props.onClick();
+      }}
     >
-      { props.value }
-    </div>
+      {props.value}
+    </StyledSquare>
   );
-}
+};
 
 export default Square;

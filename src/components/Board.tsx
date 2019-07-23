@@ -1,37 +1,41 @@
 /** @jsx jsx */
-import React, {useState}from 'react';
-import { jsx, css } from '@emotion/core';
+import React, { useState } from "react";
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
 
-import Square from './Square';
+import Square from "./Square";
 
-const squareSize = '40px';
+type SquaresProps = {};
 
-const SquaresCSS = css`
+const squareSize = "40px";
+
+const StyledSquaress = styled.div<SquaresProps>`
   display: grid;
   flex-wrap: wrap;
   grid-template-rows: ${squareSize} ${squareSize} ${squareSize};
   grid-template-columns: ${squareSize} ${squareSize} ${squareSize};
-  // justify-content: center;
 `;
 
-interface BoardProps {
+type BoardProps = {
   squares: Array<string | null>;
   onClick: (i: number) => void;
-}
+};
 
-const Board: React.FC<BoardProps> = (props) => {
+const Board: React.FC<BoardProps> = props => {
   function renderSquare(i: number): JSX.Element {
     return (
       <Square
-        value={ props.squares[i] }
-        onClick={() => { props.onClick(i); }}
+        value={props.squares[i]}
+        onClick={() => {
+          props.onClick(i);
+        }}
       />
     );
   }
 
   return (
     <div className="Board">
-      <div className="Squares" css={ SquaresCSS }>
+      <StyledSquaress className="Squares">
         {renderSquare(0)}
         {renderSquare(1)}
         {renderSquare(2)}
@@ -41,10 +45,9 @@ const Board: React.FC<BoardProps> = (props) => {
         {renderSquare(6)}
         {renderSquare(7)}
         {renderSquare(8)}
-      </div>
+      </StyledSquaress>
     </div>
   );
-
-}
+};
 
 export default Board;
